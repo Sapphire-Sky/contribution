@@ -1,17 +1,24 @@
 import os
 import git
+import random
+import string
+import datetime
+
+def randomstring(n):
+   return ''.join(random.choices(string.ascii_letters + string.digits, k=n))
 
 
-#Pushしたいリポジトリに移動
-repository = git.Repo()
+count = random.randint(5,10)
+for i in range(count):
+    # branchの取得
+    now = datetime.datetime.now()
+    now.strftime('%Y-%m-%d %H:%M:%S')
+    repo = git.Repo(os.getcwd())
 
-#最新を取り込むため一旦Pull
-o = repository.remotes.origin
-o.pull()
+    with open('bar.txt', 'wt', encoding='utf-8') as f:
+        rand_str = randomstring(100)
+        f.write(rand_str)
 
-#Commit(サブディレクトリ含めて全て)
-repository.git.commit('.','-m','\"Commit Log\"')
-
-#Push
-origin = repository.remote(name='origin')
-origin.push()
+    repo.git.add('bar.txt')
+    repo.git.commit('bar.txt', message='Commited by commit-push.py {}'.format(now))
+    repo.git.push('origin', 'master')
