@@ -8,7 +8,7 @@ def randomstring(n):
    return ''.join(random.choices(string.ascii_letters + string.digits, k=n))
 
 
-count = random.randint(5,10)
+count = random.randint(1,8)
 for i in range(count):
     # branchの取得
     repo = git.Repo(os.getcwd())
