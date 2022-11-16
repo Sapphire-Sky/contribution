@@ -19,7 +19,7 @@ jobs:
             git config --global user.name ${{ secrets.USER_NAME }}
             count=$RANDOM%9
             for ((i=0; i<$count; i++)); do
-                echo /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 1000 | head -n 1 | sort | uniq > README.md
+                cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 1000 | head -n 1 | sort | uniq > README.md
                 git add README.md
                 git commit -m '[add] www'
                 git push origin main
