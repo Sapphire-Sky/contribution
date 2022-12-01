@@ -17,9 +17,10 @@ jobs:
         run: |
             git config --global user.email ${{ secrets.USER_EMAIL }}
             git config --global user.name ${{ secrets.USER_NAME }}
-            count=$(((RANDOM % 8) + 1))
+            count=$(((RANDOM % 9) + 1))
             for ((i=0; i<$count; i++)); do
-                openssl rand -base64 12 | fold -w 10 | head -1 > README.md
+                cat /dev/urandom | base64 | fold -w 50 | head -n 1 > README.md
+                echo $count >> README.md
                 git add README.md
                 git commit -m '[add] www'
                 git push origin main
