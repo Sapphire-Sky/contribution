@@ -19,9 +19,9 @@ jobs:
             git config --global user.name ${{ secrets.USER_NAME }}
             count=$(((RANDOM % 9) + 1))
             for ((i=0; i<$count; i++)); do
-                cat /dev/urandom | base64 | fold -w 50 | head -n 1 > README.md
+                openssl rand -base64 40 | fold -w 30  | head -1 > README.md
                 echo $count >> README.md
                 git add README.md
-                git commit -m '[add] www'
+                git commit -m '[update] README.md'
                 git push origin main
             done
